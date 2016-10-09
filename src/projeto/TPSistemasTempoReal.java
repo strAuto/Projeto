@@ -4,13 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import tpsistemastemporeal.Sensoriamento;
 
 public class TPSistemasTempoReal {
 
     public static void main(String[] args) {
         try{
             ArrayList<Node> path = new ArrayList<Node>();
-            int rows = 0, columns = 0;
+            Sensoriamento sensoriamento = new Sensoriamento();
+            int rows = 0, columns = 0, i;
             int[] start_finish_nodes = new int[4];
             int[] position = new int[2];
             //carregando o mapa, primeiros numeros sao o tamanho da matriz e os pontos de origem e destino
@@ -20,7 +22,7 @@ public class TPSistemasTempoReal {
             Node[][] a = new Node[rows][columns];
             for(int k= 0; k< 4; k++)
                 start_finish_nodes[k] = input.nextInt();
-            for(int i = 0; i < rows; i++){
+            for(i = 0; i < rows; i++){
                 for(int j = 0; j < columns; j++){  
                     a[i][j] = new Node();
                     a[i][j].label = input.nextInt();
@@ -46,7 +48,10 @@ public class TPSistemasTempoReal {
             while (!(path.contains(finish))){
                 path.get(indice_path).find_neighborhood(a, rows, columns, path);                
                 indice_path++;
-            }                      
+            }
+            for(i=0;i<path.size() - 1;i++){
+                sensoriamento.podeProsseguir(path, i);
+            }
         }    
         catch(FileNotFoundException e){
             System.err.println("FileNotFoundException: " + e.getMessage());

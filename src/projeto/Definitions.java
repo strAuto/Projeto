@@ -22,6 +22,7 @@ public class Definitions {
     int[] definition_5 = {0,1,2,3,4,5,6,7};
     int[] definition_6 = {0,1,2,3,4,5,6,7};
     int[] definition_7 = {0,1,2,3,4,5,6,7};
+    int[] definition_stop = {5,6,0};
     
     public static boolean contains(int[] arr, int item) {
       for (int n : arr) {
@@ -30,7 +31,14 @@ public class Definitions {
          }
       }
       return false;
-   }
+    }
+    
+    public boolean stop(int label){
+        if (contains(this.definition_stop,label))
+            return true;
+        else
+            return false;
+    }
     
     public boolean inDefinition(int label, int label_comparision){
         if ((label == 0) && (contains(this.definition_0,label_comparision)))
