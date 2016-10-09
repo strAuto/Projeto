@@ -12,19 +12,21 @@ public class TPSistemasTempoReal {
             ArrayList<Node> path = new ArrayList<Node>();
             int rows = 0, columns = 0;
             int[] start_finish_nodes = new int[4];
+            int[] position = new int[2];
             //carregando o mapa, primeiros numeros sao o tamanho da matriz e os pontos de origem e destino
             Scanner input = new Scanner (new File("C:\\caminho_entrada.txt"));
             rows = input.nextInt();
             columns = input.nextInt();
-            Node a[][] = new a[rows][columns];
-            Node teste = new Node();
-            teste.cost = 9;
+            Node[][] a = new Node[rows][columns];
             for(int k= 0; k< 4; k++)
                 start_finish_nodes[k] = input.nextInt();
             for(int i = 0; i < rows; i++){
-                for(int j = 0; j < columns; j++){                    
+                for(int j = 0; j < columns; j++){  
+                    a[i][j] = new Node();
                     a[i][j].label = input.nextInt();
                     a[i][j].cost = input.nextInt();
+                    a[i][j].position[0] = i;
+                    a[i][j].position[1] = j;
                 }
             }
             Node start = new Node();
@@ -42,8 +44,9 @@ public class TPSistemasTempoReal {
             path.add(start);
             int indice_path = 0;
             while (!(path.contains(finish))){
-              //  path.get(0).findneig
-            }                       
+                path.get(indice_path).find_neighborhood(a, rows, columns, path);                
+                indice_path++;
+            }                      
         }    
         catch(FileNotFoundException e){
             System.err.println("FileNotFoundException: " + e.getMessage());
